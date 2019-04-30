@@ -1,0 +1,28 @@
+- name: New AKS Cluster
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Create resource group
+    azure_rm_resourcegroup:
+      name: "AKSTest"
+      location: "East US"
+  - name: Create an AKS cluster
+    azure_rm_aks:
+      name: "mynewcluster"
+      location: "East US"
+      resource_group: "AKSTest"
+      dns_prefix: "mynewcluster"
+      linux_profile:
+        admin_username: "mike"
+        ssh_key: "{{ ssh_key }}"
+      service_principal:
+        client_id: "{{ client_id }}"
+        client_secret: "{{ client_secret }}"
+      agent_pool_profiles:
+        - name: default
+          count: 2
+          vm_size: Standard_D2_v2
+      tags:
+        Environment: Dev
+        Backup: False
+        Client: Mike
