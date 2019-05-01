@@ -23,6 +23,6 @@
           count: 2
           vm_size: Standard_D2_v2
       tags:
-        Environment: Dev
+        Environment: "Dev"
         Backup: False
-        Client: Mike
+        Client: "Mike
